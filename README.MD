@@ -1,7 +1,7 @@
 Strip Disclaimer Text
 =====================
 
-![This script was last tested in Nuix 7.8](https://img.shields.io/badge/Script%20Tested%20in%20Nuix-7.8-green.svg)
+![This script was last tested in Nuix 9.6](https://img.shields.io/badge/Script%20Tested%20in%20Nuix-9.6-green.svg)
 
 View the GitHub project [here](https://github.com/Nuix/Strip-Disclaimer-Text) or download the latest release [here](https://github.com/Nuix/Strip-Disclaimer-Text/releases).
 
@@ -84,7 +84,7 @@ Once you have a copy of Nx.jar, make sure to include it in the same directory as
 # License
 
 ```
-Copyright 2019 Nuix
+Copyright 2022 Nuix
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
