@@ -7,6 +7,10 @@ class TextReplacer
 		@newline_normalization = "\n"
 		@needle = normalize_line_endings(needle)
 		@pattern = Pattern.compile("\\Q#{@needle}\\E")
+
+		@or_rgx = /\bor\b/i
+		@and_rgx = /\band\b/i
+
 		puts @pattern
 	end
 
@@ -19,9 +23,10 @@ class TextReplacer
 	end
 
 	def get_query_criteria
+
 		tokens = TextTokenizer.tokenize_text(@needle)
 		tokens = tokens.uniq
-		tokens = tokens.reject{|t|t =~ /\bor\b/i || t =~ /\band\b/i}.map{|t| "\"#{t}\""}
+		tokens = tokens.reject{|t|t =~ @or_rgx || t =~ @and_rgx}.map{|t| "\"#{t}\""}
 		return tokens.join(" AND ")
 	end
 
