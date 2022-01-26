@@ -86,7 +86,7 @@ if dialog.getDialogResult == true
 	disclaimer_criteria = replacer.get_query_criteria
 	# Work out what the replacement text will be
 	replacement_text = nil
-	if values["replacement_value"]
+	if values["replace_with_value"]
 		replacement_text = values["replacement_value"]
 	else
 		replacement_text = File.read(values["replacement_file"])
