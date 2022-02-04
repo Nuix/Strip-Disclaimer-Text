@@ -65,7 +65,11 @@ The terms used to match the disclaimer text are determined by using a Lucene tok
 
 Items which hit upon this query are still checked for having an exact match to the disclaimer text before being modified.
 
-**Important:** The find/replace used is strict whitespace and capitalization.  It is expected that the provided disclaimer text is an exact match and will only be replaced in the item's text if an exact match is found.
+The regular expression used to perform find/replace of disclaimer text is case insensitive and whitespace insensitive.  For example the above disclaimer text would result in this regular expression being used with case insensitive matching:
+
+```
+\QThis\E\s+\Qe-mail\E\s+\Qmay\E\s+\Qcontain\E\s+\Qmaterial\E\s+\Qthat\E\s+\Qis\E\s+\Qconfidential.\E
+```
 
 ## Script Processing
 
