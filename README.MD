@@ -26,7 +26,7 @@ Begin by downloading the latest release of this code.  Extract the contents of t
 
 - This script does not make backups of item text before running.  It is recommended that if you wish to backup the item text make a backup of the case or export the item text.
 - The newlines of the input, replacement and final result are normalized to all be `\n`.
-- Nuix should be started with the argument `-Dfile.encoding=utf8`.  If Nuix is not started with this argument the script may have difficulty matching Unicode characters.  This is a due to a quirk in the way JRuby works.
+- Nuix should be started with the argument `-Dfile.encoding=UTF-8`.  If Nuix is not started with this argument the script may have difficulty matching Unicode characters.  This is a due to a quirk in the way JRuby works.
 - The disclaimer text file should be saved with the encoding `UTF-8`, especially if it contains any Unicode characters.
 
 
