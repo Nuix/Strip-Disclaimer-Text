@@ -3,10 +3,12 @@ load File.join(script_directory,"TextTokenizer.rb")
 java_import java.util.regex.Pattern
 
 class TextReplacer
+	attr_accessor :regular_expression
+
 	def initialize(needle)
-		@newline_normalization = "\n"
-		@needle = normalize_line_endings(needle)
-		@pattern = Pattern.compile("\\Q#{@needle}\\E")
+		@needle = needle
+		@regular_expression = build_regular_expression(needle)
+		@pattern = Pattern.compile(@regular_expression,Pattern::CASE_INSENSITIVE)
 
 		@or_rgx = /\bor\b/i
 		@and_rgx = /\band\b/i
@@ -14,16 +16,15 @@ class TextReplacer
 		puts @pattern
 	end
 
-	def normalize_line_endings(input)
-		return input.gsub(/\r?\n/,@newline_normalization)
-	end
-
-	def clean_string(input)
-		
+	def build_regular_expression(input)
+		return input
+			.gsub(/\r?\n/,"\\r?\\n")
+			.split(/\s+/)
+			.map{|c|"\\Q#{c}\\E"}
+			.join("\\s+")
 	end
 
 	def get_query_criteria
-
 		tokens = TextTokenizer.tokenize_text(@needle)
 		tokens = tokens.uniq
 		tokens = tokens.reject{|t|t =~ @or_rgx || t =~ @and_rgx}.map{|t| "\"#{t}\""}
@@ -31,15 +32,13 @@ class TextReplacer
 	end
 
 	def has_match(item)
-		normalized_item_text = normalize_line_endings(item.getTextObject.toString)
-		return @pattern.matcher(normalized_item_text).find
+		return @pattern.matcher(item.getTextObject.toString).find
 	end
 
 	# Note this only works inside a Case.withWriteAccessBlock!
 	def perform_replacement(item,replacement_text="")
 		replacement_text ||= ""
-		normalized_item_text = normalize_line_endings(item.getTextObject.toString)
-		modified_text = @pattern.matcher(normalized_item_text).replaceAll(replacement_text)
+		modified_text = @pattern.matcher(item.getTextObject.toString).replaceAll(replacement_text)
 		item.modify do |modifier|
 			modifier.replaceText(modified_text)
 		end

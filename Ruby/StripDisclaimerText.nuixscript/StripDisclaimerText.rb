@@ -95,16 +95,24 @@ if dialog.getDialogResult == true
 	replaced_count = 0
 	# Show the progress dialog
 	ProgressDialog.forBlock do |pd|
+		# Make it bigger!
+		pd.embiggen(300)
+
+		# We are likely going to have some long lines of
+		# text so lets turn on word wrap for messag area
+		pd.setTextWrapping(true)
+
 		# Hide the sub progress bar, we wont need it
 		pd.setSubProgressVisible(false)
 
 		# Log what settings are going to be user and obtain the items
 		# we will check
-		pd.logMessage("Disclaimer Text:\n\n#{disclaimer_text}")
-		pd.logMessage("\nReplacement Text:\n\n#{replacement_text}")
-		pd.logMessage("\nScope Query: #{values["scope_query"]}")
+		pd.logMessage("=== Disclaimer Text ===\n\n#{disclaimer_text}")
+		pd.logMessage("\n=== Disclaimer Java Regular Expression ===\n\n#{replacer.regular_expression}")
+		pd.logMessage("\n=== Replacement Text ===\n\n#{replacement_text}")
+		pd.logMessage("\n=== Scope Query ====\n\n#{values["scope_query"]}")
 		if values["tag_modified"]
-			pd.logMessage("Tag: #{values["modified_tag"]}")
+			pd.logMessage("\nTag: #{values["modified_tag"]}")
 		end
 		# Build our actual query
 		query_pieces = []
